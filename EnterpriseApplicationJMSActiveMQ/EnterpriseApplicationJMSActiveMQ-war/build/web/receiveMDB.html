@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Receive MDB</title>
+</head>
+<body>
+            <center>
+<!--		<div>
+			<input id="txtmsg" type="text" >
+			<input type="submit" value="Envoyer" onclick="start()" />
+		</div><br>-->
+                <h2>Messages Listener</h2>
+		<textarea id="tarecmsg" rows="12" cols="30"></textarea> 
+            </center>
+	
+	<script type="text/javascript">
+		var webSocket = 
+			new WebSocket('ws://localhost:8080/EnterpriseApplicationJMSActiveMQ-war/mywebsocket');
+
+		webSocket.onerror = function(event) {
+			onError(event)
+		};
+
+		webSocket.onopen = function(event) {
+			onOpen(event)
+		};
+
+		webSocket.onmessage = function(event) {
+			onMessage(event)
+		};
+
+		function onMessage(event) {
+				tarecmsg.value += event.data+"\n";
+		}
+
+		function onOpen(event) {}
+
+		function onError(event) {
+			alert(event.data);
+		}
+
+		function start() {
+			webSocket.send(txtmsg.value);
+			return false;
+		}
+	</script>
+</body>
+</html>
