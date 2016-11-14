@@ -33,12 +33,9 @@ public class Sender {
             connection = factory.createConnection();
             connection.start();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            for(int i =0; i<3; i++){
-                destination = session.createQueue("amqmsg");
-                producer = session.createProducer(destination);
+            destination = session.createQueue("amqmsg");
+            producer = session.createProducer(destination);
                 sendMsgToDest( destination, session, i);
-            
-            }
             
             session.close();
             connection.close();
